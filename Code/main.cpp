@@ -1,38 +1,28 @@
 #include <iostream>
 
+void printMenu();
+
 int main(int argc, char *argv[]) {
 	std::cout << "Welcome to Azul!" << std::endl;
 	std::cout << "-------------------" << std::endl;
-	int input = 1;
+	std::string input;
+	printMenu();
 	while(!std::cin.eof())
 	{
-		if(input <= 3 && input >= 1)
-		{
-			std::cout << std::endl;
-			std::cout << "Menu" << std::endl;
-			std::cout << "----" << std::endl;
-			std::cout << "1. New Game" << std::endl;
-			std::cout << "2. Load Game" << std::endl;
-			std::cout << "3. Credits (Show student information)" << std::endl;
-			std::cout << "4. Quit" << std::endl;
-			std::cout << std::endl;
-			std::cout << "> ";
-			std::cin >> input;
-		}
-		else 
-		{
-			std::cin >> input;
-		}
-		if(input == 1)
+		std::cin >> input;
+		if(input == "1")
 		{
 			//
+			printMenu();
 		}
-		else if (input == 2) 
+		else if (input == "2") 
 		{
 			//
+			printMenu();
 		}
-		else if (input == 3) 
+		else if (input == "3") 
 		{
+			std::cout << std::endl;
 			std::cout << "----------------------------------" << std::endl;
 			std::cout << "Student 1" << std::endl;
 			std::cout << "Name: Hin Yap Lee" << std::endl;
@@ -49,8 +39,9 @@ int main(int argc, char *argv[]) {
 			std::cout << "Student ID: s3822918" << std::endl;
 			std::cout << "Email: s3822918@rmit.edu.vn" << std::endl;
 			std::cout << "----------------------------------" << std::endl;
+			printMenu();
 		}
-		else if(input == 4 || std::cin.eof())
+		else if(input == "4" || std::cin.eof())
 		{
 			std::cout << "Goodbye" << std::endl;
 			return EXIT_SUCCESS;
@@ -59,8 +50,21 @@ int main(int argc, char *argv[]) {
 		{
 			std::cout << "Invalid Input" << std::endl;
 			std::cout << "> ";	
-			std::cin.clear();
-			std::cin.ignore(1000,'\n');
 		}
 	}
+	return EXIT_SUCCESS;
+}
+
+
+void printMenu()
+{
+	std::cout << std::endl;
+	std::cout << "Menu" << std::endl;
+	std::cout << "----" << std::endl;
+	std::cout << "1. New Game" << std::endl;
+	std::cout << "2. Load Game" << std::endl;
+	std::cout << "3. Credits (Show student information)" << std::endl;
+	std::cout << "4. Quit" << std::endl;
+	std::cout << std::endl;
+	std::cout << "> ";
 }
