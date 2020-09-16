@@ -8,7 +8,7 @@ public:
 	Tile* tile;
 	Node (Tile* tile)
 	{
-		this->tile = new Tile(tile->getType());
+		this->tile = new Tile(tile->getTileType());
 	}
 	~Node()
 	{

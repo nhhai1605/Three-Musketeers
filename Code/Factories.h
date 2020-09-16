@@ -1,6 +1,8 @@
 #ifndef FACTORIES
 #define FACTORIES
 #include "TileBag.h"
+#include <vector>
+
 class Factories
 {
     public:
@@ -9,7 +11,7 @@ class Factories
     void printAll();
     void dealTile(TileBag*tileBag);
     private:
-    // Tile * central;
+    std::vector <Tile*> central;
     Tile *** factories;
 };
 #endif //FACTORIES

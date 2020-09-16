@@ -5,7 +5,7 @@ Tile::Tile(TileType tileType)
 	this->tileType = tileType;
 }
 
-TileType Tile::getType()
+TileType Tile::getTileType()
 {
 	return tileType;
 }

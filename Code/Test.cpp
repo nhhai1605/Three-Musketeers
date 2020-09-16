@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
     tileBag->printAll();
 
     Factories *factories = new Factories();
+    tileBag->takeTileFromBag();
     factories->dealTile(tileBag);
     factories->printAll();
     factories->dealTile(tileBag);
