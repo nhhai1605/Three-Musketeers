@@ -19,7 +19,7 @@ LinkedList::~LinkedList()
 }
 
 void LinkedList::addToFront(Tile *tile) {
-	Tile* other = new Tile(tile->getType());
+	Tile* other = new Tile(tile->getTileType());
 	Node* node = new Node(other);
 	node->next = head;
 	head = node;
@@ -27,7 +27,7 @@ void LinkedList::addToFront(Tile *tile) {
 }
 
 void LinkedList::addToBack(Tile *tile) {
-	Tile* other = new Tile(tile->getType());
+	Tile* other = new Tile(tile->getTileType());
 	Node* node = new Node(other);
 	if(head != nullptr)
 	{
