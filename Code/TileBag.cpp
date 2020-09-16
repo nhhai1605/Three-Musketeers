@@ -41,5 +41,10 @@ void TileBag::printAll()
 
 void TileBag::printTileAtIndex(int index)
 {
-    std::cout << tileList->getTileTypeAtIndex(index)->getTileName() << std::endl;
+    std::cout << tileList->getTileAtIndex(index)->getTileName() << std::endl;
+}
+
+Tile* TileBag::getFirstTile()
+{
+    return tileList->getFirstTile();
 }

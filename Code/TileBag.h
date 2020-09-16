@@ -11,6 +11,7 @@ class TileBag
         int size();
         void printAll();
         void printTileAtIndex(int index);
+        Tile* getFirstTile();
     private:
         LinkedList* tileList;
 

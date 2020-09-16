@@ -43,3 +43,8 @@ char Tile::getTileName()
     }
 	return c;
 }
+
+void Tile::setTileType(TileType typeNeedToSet)
+{
+  this->tileType = typeNeedToSet;
+}

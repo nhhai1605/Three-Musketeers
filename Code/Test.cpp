@@ -1,4 +1,5 @@
 #include "TileBag.h"
+#include "Factories.h"
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -36,5 +37,12 @@ int main(int argc, char *argv[]) {
     std::cout << tileBag->size() << std::endl;
     tileBag->addTileBackToBag(new Tile((TileType)10));
     tileBag->printAll();
+
+    Factories *factories = new Factories();
+    factories->dealTile(tileBag);
+    factories->printAll();
+    factories->dealTile(tileBag);
+    factories->printAll();
+
 
 }

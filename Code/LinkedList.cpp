@@ -90,7 +90,7 @@ int LinkedList::size()
 	return sizeOfList;
 }
 
-Tile* LinkedList::getTileTypeAtIndex(int index)
+Tile* LinkedList::getTileAtIndex(int index)
 {
 	if(index < 0 || index > sizeOfList)
 	{
@@ -108,11 +108,11 @@ Tile* LinkedList::getTileTypeAtIndex(int index)
 		return curr->tile;
 	}
 }
-Tile* LinkedList::getFirstTileType()
+Tile* LinkedList::getFirstTile()
 {
 	return head->tile;
 }
-Tile* LinkedList::getLastTileType()
+Tile* LinkedList::getLastTile()
 {
 	Node * curr = head;
 	while(curr->next != nullptr)

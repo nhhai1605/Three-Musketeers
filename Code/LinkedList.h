@@ -29,9 +29,9 @@ public:
 	void removeFromFront();
 	void removeFromBack();
 
-	Tile * getTileTypeAtIndex(int index);
-	Tile * getFirstTileType();
-	Tile * getLastTileType();
+	Tile * getTileAtIndex(int index);
+	Tile * getFirstTile();
+	Tile * getLastTile();
 private:
 	Node* head;
 	int sizeOfList;

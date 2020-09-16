@@ -7,6 +7,7 @@ class Tile
 		Tile(TileType tileType);
 		TileType getType();
 		char getTileName();
+		void setTileType(TileType typeNeedToSet);
 	private:
 		TileType tileType;
 };
