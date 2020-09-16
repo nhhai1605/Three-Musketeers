@@ -12,7 +12,10 @@ LinkedList::LinkedList(LinkedList& other)
 
 LinkedList::~LinkedList() 
 {
-
+	while(head != nullptr)
+	{
+		this->removeFromFront();
+	}
 }
 
 void LinkedList::addToFront(Tile *tile) {
@@ -59,17 +62,27 @@ void LinkedList::removeFromFront()
 
 void LinkedList::removeFromBack() 
 {
-	Node * needToDelete = head;
-	Node * beforeNeedToDelete;
-	while(needToDelete->next != nullptr)
+	if(head != nullptr)
 	{
-		beforeNeedToDelete = needToDelete;
-		needToDelete = needToDelete->next;
+		Node * needToDelete = head;
+		Node * beforeNeedToDelete ;
+		while(needToDelete->next != nullptr)
+		{
+			beforeNeedToDelete = needToDelete;
+			needToDelete = needToDelete->next;
+		}
+		if(beforeNeedToDelete != nullptr)
+		{
+			beforeNeedToDelete->next = nullptr;
+		}
+		else
+		{
+			head = nullptr;
+		}	
+		delete needToDelete;
+		needToDelete = nullptr;
+		sizeOfList--;
 	}
-	beforeNeedToDelete->next = nullptr;
-	delete needToDelete;
-	needToDelete = nullptr;
-	sizeOfList--;
 }
 
 int LinkedList::size()
