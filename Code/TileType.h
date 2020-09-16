@@ -1,5 +1,5 @@
-#ifndef TILETYPE
-#define TILETYPE
+#ifndef TILE_TYPE
+#define TILE_TYPE
 
 enum TileType 
 {
@@ -12,4 +12,4 @@ enum TileType
 	EMPTY,
 };
 
-#endif //TILETYPE
+#endif //TILE_TYPE
