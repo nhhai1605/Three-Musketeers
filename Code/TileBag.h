@@ -6,6 +6,11 @@ class TileBag
     public:
         TileBag();
         ~TileBag();
+        void addTileBackToBag(Tile* tile);
+        void takeTileFromBag();
+        int size();
+        void printAll();
+        void printTileAtIndex(int index);
     private:
         LinkedList* tileList;
 

@@ -6,6 +6,7 @@ class Tile
 	public:
 		Tile(TileType tileType);
 		TileType getType();
+		char getTileName();
 	private:
 		TileType tileType;
 };

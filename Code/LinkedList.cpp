@@ -90,11 +90,11 @@ int LinkedList::size()
 	return sizeOfList;
 }
 
-TileType LinkedList::getTileTypeAtIndex(int index)
+Tile* LinkedList::getTileTypeAtIndex(int index)
 {
 	if(index < 0 || index > sizeOfList)
 	{
-		return EMPTY;
+		return new Tile(EMPTY);
 	}
 	else
 	{
@@ -105,19 +105,19 @@ TileType LinkedList::getTileTypeAtIndex(int index)
 			curr = curr->next;
 			count++;
 		}
-		return curr->tile->getType();
+		return curr->tile;
 	}
 }
-TileType LinkedList::getFirstTileType()
+Tile* LinkedList::getFirstTileType()
 {
-	return head->tile->getType();
+	return head->tile;
 }
-TileType LinkedList::getLastTileType()
+Tile* LinkedList::getLastTileType()
 {
 	Node * curr = head;
 	while(curr->next != nullptr)
 	{
 		curr = curr->next;
 	}
-	return curr->tile->getType();
+	return curr->tile;
 }
