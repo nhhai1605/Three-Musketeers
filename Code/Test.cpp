@@ -1,5 +1,6 @@
 #include "TileBag.h"
 #include "Factories.h"
+#include "Mosaic.h"
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -44,6 +45,8 @@ int main(int argc, char *argv[]) {
     factories->printAll();
     factories->dealTile(tileBag);
     factories->printAll();
+    Mosaic * mosaic = new Mosaic("player1");
+    mosaic->printMosaic();
 
 
 }
