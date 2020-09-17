@@ -92,9 +92,10 @@ int LinkedList::size()
 
 Tile* LinkedList::getTileAtIndex(int index)
 {
+	Tile * tile;
 	if(index < 0 || index > sizeOfList)
 	{
-		return new Tile(EMPTY);
+		tile = new Tile(EMPTY);
 	}
 	else
 	{
@@ -105,8 +106,9 @@ Tile* LinkedList::getTileAtIndex(int index)
 			curr = curr->next;
 			count++;
 		}
-		return curr->tile;
+		tile =  curr->tile;
 	}
+	return tile;
 }
 Tile* LinkedList::getFirstTile()
 {

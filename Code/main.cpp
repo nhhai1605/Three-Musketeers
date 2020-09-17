@@ -7,19 +7,17 @@ int main(int argc, char *argv[]) {
 	std::cout << "Welcome to Azul!" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	std::string input;
-	printMenu();
 	while(!std::cin.eof())
 	{
+		printMenu();
 		std::cin >> input;
 		if(input == "1")
 		{
 			//
-			printMenu();
 		}
 		else if (input == "2") 
 		{
 			//
-			printMenu();
 		}
 		else if (input == "3") 
 		{
@@ -40,7 +38,6 @@ int main(int argc, char *argv[]) {
 			std::cout << "Student ID: s3822918" << std::endl;
 			std::cout << "Email: s3822918@rmit.edu.vn" << std::endl;
 			std::cout << "----------------------------------" << std::endl;
-			printMenu();
 		}
 		else if(input == "4" || std::cin.eof())
 		{
@@ -49,8 +46,7 @@ int main(int argc, char *argv[]) {
 		}
 		else
 		{
-			std::cout << "Invalid Input" << std::endl;
-			std::cout << "> ";	
+			std::cout << "Invalid Input" << std::endl;	
 		}
 	}
 	return EXIT_SUCCESS;

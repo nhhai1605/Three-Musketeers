@@ -3,14 +3,14 @@
 
 Factories::Factories()
 {
-    factories = new Tile ** [5]; 
-    for (int i = 0; i < 5; ++i) 
+    factories = new Tile ** [NUMBER_OF_FACTORY]; 
+    for (int i = 0; i < NUMBER_OF_FACTORY; ++i) 
     {
-        factories[i] = new Tile * [4];
+        factories[i] = new Tile * [FACTORY_SIZE];
     }
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < NUMBER_OF_FACTORY; i++)
     {
-        for(int j = 0; j < 4; j++)
+        for(int j = 0; j < FACTORY_SIZE; j++)
         {
             factories[i][j] = new Tile(EMPTY);
         }
@@ -26,10 +26,10 @@ Factories::~Factories()
 void Factories::printAll()
 {
     std::cout << "0: " << central.front()->getTileName() << std::endl;
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < NUMBER_OF_FACTORY; i++)
     {
         std::cout << i+1 << ": " ;
-        for(int j = 0; j < 4; j++)
+        for(int j = 0; j < FACTORY_SIZE; j++)
         {
             std::cout << factories[i][j]->getTileName() << " ";
         }
@@ -39,9 +39,9 @@ void Factories::printAll()
 
 void Factories::dealTile(TileBag* tileBag)
 {
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < NUMBER_OF_FACTORY; i++)
     {
-        for(int j = 0; j < 4; j++)
+        for(int j = 0; j < FACTORY_SIZE; j++)
         {
             Tile* tile = tileBag->getFirstTile();
             factories[i][j]->setTileType(tile->getTileType());

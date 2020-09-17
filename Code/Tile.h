@@ -1,6 +1,6 @@
 #ifndef TILE
 #define TILE
-#include "TileType.h"
+#include "Types.h"
 class Tile
 {	
 	public:
