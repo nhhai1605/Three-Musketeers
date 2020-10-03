@@ -5,17 +5,13 @@ LinkedList::LinkedList() {
 	sizeOfList = 0;
 }
 
-LinkedList::LinkedList(LinkedList& other) 
-{
-
-}
-
 LinkedList::~LinkedList() 
 {
 	while(head != nullptr)
 	{
 		this->removeFromFront();
 	}
+	sizeOfList = 0;
 }
 
 void LinkedList::addToFront(Tile *tile) {
@@ -84,7 +80,48 @@ void LinkedList::removeFromBack()
 		sizeOfList--;
 	}
 }
-
+void LinkedList::removeAtIndex(int index)
+{
+	if(index >= 0 && index < sizeOfList)
+	{
+		if(sizeOfList >= 3)
+		{
+			Node * needToDelete = head;
+			Node * beforeNeedToDelete;
+			int count = 0;
+			while(count != index)
+			{
+				beforeNeedToDelete = needToDelete;
+				needToDelete = needToDelete->next;
+				count++;
+			}
+			beforeNeedToDelete->next = needToDelete->next;
+			needToDelete->next = nullptr;
+			delete needToDelete;
+			needToDelete = nullptr;
+			sizeOfList--;
+		}
+		else
+		{
+			if(sizeOfList == 1)
+			{
+				removeFromFront();
+			}
+			else if(sizeOfList == 2)
+			{
+				if(index == 0)
+				{
+					removeFromFront();
+				}
+				else if(index == 1)
+				{
+					removeFromBack();
+				}
+			}
+		}
+		
+	}
+}
 int LinkedList::size()
 {
 	return sizeOfList;
@@ -93,7 +130,7 @@ int LinkedList::size()
 Tile* LinkedList::getTileAtIndex(int index)
 {
 	Tile * tile;
-	if(index < 0 || index > sizeOfList)
+	if(index < 0 || index >= sizeOfList)
 	{
 		tile = new Tile(EMPTY);
 	}

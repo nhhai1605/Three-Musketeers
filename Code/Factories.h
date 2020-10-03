@@ -1,17 +1,22 @@
 #ifndef FACTORIES
 #define FACTORIES
 #include "TileBag.h"
-#include <vector>
 
 class Factories
 {
     public:
     Factories();
     ~Factories();
-    void printAll();
+    void printFactories();
     void dealTile(TileBag*tileBag);
+    Tile ** getFactory(int row);
+    void clearFactory(int row);
+    void addToCentral(Tile * tile);
+    bool factoriesAreEmpty();
+    LinkedList* getCentral();
+
     private:
-    std::vector <Tile*> central;
     Tile *** factories;
+    LinkedList* central;
 };
 #endif //FACTORIES

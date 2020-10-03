@@ -19,7 +19,6 @@ public:
 class LinkedList {
 public:
 	LinkedList();
-	LinkedList(LinkedList& other);
 	~LinkedList();
 	
 	int size();
@@ -28,6 +27,8 @@ public:
 
 	void removeFromFront();
 	void removeFromBack();
+
+	void removeAtIndex(int index);
 
 	Tile * getTileAtIndex(int index);
 	Tile * getFirstTile();

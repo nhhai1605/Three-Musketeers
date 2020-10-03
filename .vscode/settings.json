@@ -1,7 +1,5 @@
 {
     "files.associations": {
-        "vector": "cpp",
-        "string": "cpp",
         "iosfwd": "cpp",
         "__bit_reference": "cpp",
         "__config": "cpp",
@@ -53,6 +51,7 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
+        "string": "cpp",
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",
@@ -60,9 +59,6 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "utility": "cpp",
-        "deque": "cpp",
-        "fstream": "cpp",
-        "iomanip": "cpp",
-        "stack": "cpp"
+        "vector": "cpp"
     }
 }

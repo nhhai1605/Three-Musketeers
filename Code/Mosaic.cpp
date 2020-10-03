@@ -3,48 +3,61 @@
 Mosaic::Mosaic(std::string playerName)
 {
     this->playerName = playerName;
-    table = new Tile ** [TABLE_SIZE]; 
-    for (int i = 0; i < TABLE_SIZE; ++i) 
+    score = 0;
+
+    table = new Tile ** [MOSAIC_ROW_SIZE]; 
+    for (int i = 0; i < MOSAIC_ROW_SIZE; ++i) 
     {
-        table[i] = new Tile * [TABLE_SIZE];
+        table[i] = new Tile * [MOSAIC_ROW_SIZE];
     }
-    for(int i = 0; i < TABLE_SIZE; i++)
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
     {
-        for(int j = 0; j < TABLE_SIZE; j++)
+        for(int j = 0; j < MOSAIC_ROW_SIZE; j++)
         {
             table[i][j] = new Tile(EMPTY);
         }
     }
 
-    playerRow = new Tile ** [PLAYER_ROW_SIZE];
-    for(int i = 0; i < PLAYER_ROW_SIZE; i++)
+    playerRow = new Tile ** [MOSAIC_ROW_SIZE];
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
     {
         playerRow[i] = new Tile * [i+1];
     }
-    for(int i = 0; i < PLAYER_ROW_SIZE; i++)
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
     {   
         for(int j = 0; j <= i; j++)
         {
             playerRow[i][j] = new Tile(EMPTY);
         }
     }
-
-    brokenTiles = new Tile * [BROKEN_TILES_SIZE];
-    for(int i = 0; i < BROKEN_TILES_SIZE; i++)
-    {
-        brokenTiles[i] = new Tile(EMPTY);
-    }
 } 
+
 Mosaic::~Mosaic()
 {
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
+    {
+        for(int j = 0; j < MOSAIC_ROW_SIZE; j++)
+        {
+            delete table[i][j];
+            table [i][j] = nullptr;
+        }
+    }
 
-    
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
+    {   
+        for(int j = 0; j <= i; j++)
+        {
+            delete playerRow[i][j];
+            playerRow [i][j] = nullptr;       
+        }
+    }  
+    brokenTiles.clear();
 }
 
 void Mosaic::printMosaic()
 {
-    std::cout << "Mosaic for " << playerName << std::endl;
-    for(int i = 0; i < PLAYER_ROW_SIZE; i ++)
+    std::cout << "Mosaic for " << playerName << ": " <<  std::endl;
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i ++)
     {
         std::cout << i+1 << ":";
         printPlayerRow(i);
@@ -52,13 +65,23 @@ void Mosaic::printMosaic()
         printTableRow(i); 
         std::cout << std::endl;
     }
+    std::cout << "Broken tiles: ";
+    for(int i = 0; i < brokenTiles.size(); i++)
+    {
+        std::cout << brokenTiles[i]->getTileName() << " ";
+    }
+    std::cout << std::endl << std::endl;
 }
 
 void Mosaic::printTableRow(int index)
 {
-    for(int i = 0; i < TABLE_SIZE; i ++)
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i ++)
     {
-        std::cout << " " << table[index][i]->getTileName();
+        //This is used to check if the mosaic is deleted or not
+        if(table[index][i] != nullptr)
+        {
+            std::cout << " " << table[index][i]->getTileName();
+        }
     }
 }
 
@@ -72,6 +95,265 @@ void Mosaic::printPlayerRow(int index)
     }
     for(int i = 0; i <= index; i++)
     {
-        std::cout << " " << playerRow[index][i]->getTileName();
+        //This is used to check if the mosaic is deleted or not
+        if(playerRow[index][i] != nullptr)
+        {
+            std::cout << " " << playerRow[index][i]->getTileName();
+        }
+        else
+        {
+            std::cout << "  ";
+        }
     }
 }
+
+bool Mosaic::addTile(Tile* tile, int row)
+{
+    bool tileAdded = false;
+    for(int i = row; i >= 0; i--)
+    {
+        if(playerRow[row][i]->getTileType() == EMPTY && tileAdded == false)
+        {
+            playerRow[row][i]->setTileType(tile->getTileType());
+            tileAdded = true;
+        }
+    }
+    return tileAdded;
+}
+
+bool Mosaic::tileTypeExitedInTable(Tile * tile, int row)
+{
+    bool typeExisted = false;
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
+    {
+        if(table[row][i]->getTileType() == tile->getTileType())
+        {
+            typeExisted = true;
+        }
+    }
+    return typeExisted;
+}
+
+bool Mosaic::tileDiff(char tileCode, int row)
+{
+    bool tileDiff= true;
+    int countSpace = 0;
+    for(int i = row; i >= 0; i--)
+    {
+        if(playerRow[row][i]->getTileType() == EMPTY)
+        {
+            countSpace++;
+        }
+    }
+    for(int i = row; i >= 0; i--)
+    {
+        if(playerRow[row][i]->getTileName() == tileCode)
+        {
+            tileDiff = false;
+        }
+    }
+    if(countSpace == (row+1))
+    {
+        tileDiff = false;
+    }
+    return tileDiff;
+}
+
+bool Mosaic::addBrokenTile(Tile * tile)
+{
+    bool tileAdded = true;
+    if(brokenTiles.size() == BROKEN_TILES_SIZE)  
+    {
+        tileAdded = false;
+    }
+    else
+    {
+        Tile * copy = new Tile(tile->getTileType());
+        brokenTiles.push_back(copy);
+    }
+    return tileAdded;
+}
+
+int Mosaic::getScore()
+{
+    return score;
+}
+
+void Mosaic::calculateScore(int row, int col)
+{
+    int count = 0;
+    int numOfEmpty = 0;
+    for(int i = col; i < col + MOSAIC_ROW_SIZE; i++)
+    {   
+        if(i < MOSAIC_ROW_SIZE)
+        {
+            if(table[row][i]->getTileType() == EMPTY)
+            {
+                numOfEmpty++;
+            }         
+            if(numOfEmpty == 0)
+            {
+                count++;
+            }
+        }
+        else
+        {
+           if(table[row][i-MOSAIC_ROW_SIZE]->getTileType() == EMPTY)
+            {
+                numOfEmpty++;
+            }         
+            if(numOfEmpty == 0)
+            {
+                count++;
+            }
+        }
+    }
+    int maxRow = count;
+    count = 0;
+    numOfEmpty = 0;
+    for(int i = row; i < row + MOSAIC_ROW_SIZE; i++)
+    {   
+        if(i < MOSAIC_ROW_SIZE)
+        {
+            if(table[i][col]->getTileType() == EMPTY)
+            {
+                numOfEmpty++;
+            }         
+            if(numOfEmpty == 0)
+            {
+                count++;
+            }
+        }
+        else
+        {
+            if(table[i-MOSAIC_ROW_SIZE][col]->getTileType() == EMPTY)
+            {
+                numOfEmpty++;
+            }         
+            if(numOfEmpty == 0)
+            {
+                count++;
+            }
+        }
+    }
+    int maxCol = count;
+    if(maxCol == 1 || maxRow == 1)
+    {
+        score += (maxCol * maxRow);
+    }
+    else
+    {
+        score += maxCol + maxRow;
+    }
+    
+}
+
+void Mosaic::calculateBrokenTilesScore()
+{
+    if(brokenTiles.size() == 1)
+    {
+        score -= 1;
+    }
+    else if(brokenTiles.size() == 2)
+    {
+        score -= 2;
+    }
+    else if(brokenTiles.size() == 3)
+    {
+        score -= 4;
+    }
+    else if(brokenTiles.size() == 4)
+    {
+        score -= 6;
+    }
+    else if(brokenTiles.size() == 5)
+    {
+        score -= 8;
+    }
+    else if(brokenTiles.size() == 6)
+    {
+        score -= 11;
+    }
+    else if(brokenTiles.size() == 7)
+    {
+        score -= 14;
+    }
+}
+
+void Mosaic::updateTable(TileBag * tileBag)
+{
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
+    {
+        for(int j = 0; j <= i; j++)
+        {
+            for(int k = B; k != F; k++)
+            {
+                if(playerRow[i][j]->getTileType() == (TileType)k)
+                {
+                    if(i+k <= 4)
+                    {
+                        if(table[i][i+k]->getTileType() == EMPTY && isRowFull(i))
+                        {
+                            table[i][i+k]->setTileType((TileType)k);
+                            calculateScore(i, i+k);
+                        }
+                    }
+                    else
+                    {
+                        if(table[i][i+k-5]->getTileType() == EMPTY && isRowFull(i))
+                        {
+                            table[i][i+k-5]->setTileType((TileType)k);
+                            calculateScore(i, i+k-5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    calculateBrokenTilesScore();
+    for(int i = brokenTiles.size()-1; i >= 0; i--)
+    {
+        if(brokenTiles[i]->getTileType() != F)
+        {
+            tileBag->addTileBackToBag(brokenTiles[i]);
+            brokenTiles.pop_back();
+        }     
+        else
+        {
+            tileBag->addFTile(brokenTiles[i]);
+            brokenTiles.pop_back();
+        }
+    }
+    for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
+    {
+        if(isRowFull(i))
+        {
+            for(int j = 0; j <= i; j++)
+            {
+                tileBag->addTileBackToBag(playerRow[i][j]);
+                playerRow[i][j]->setTileType(EMPTY);
+            }
+        }
+    }
+}
+
+bool Mosaic::isRowFull(int row)
+{
+    bool isFull = false;
+    int count = 0;
+    for(int i = 0; i <= row; i++)
+    {
+        if(playerRow[row][i]->getTileType() != EMPTY)
+        {
+            count++;
+        }
+    }
+    if(count == (row+1))
+    {
+        isFull = true;
+    }
+    return isFull;
+}
+
+
+
