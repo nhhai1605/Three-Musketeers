@@ -61,7 +61,7 @@ void LinkedList::removeFromBack()
 	if(head != nullptr)
 	{
 		Node * needToDelete = head;
-		Node * beforeNeedToDelete ;
+		Node * beforeNeedToDelete = nullptr;
 		while(needToDelete->next != nullptr)
 		{
 			beforeNeedToDelete = needToDelete;
@@ -87,7 +87,7 @@ void LinkedList::removeAtIndex(int index)
 		if(sizeOfList >= 3)
 		{
 			Node * needToDelete = head;
-			Node * beforeNeedToDelete;
+			Node * beforeNeedToDelete = nullptr;
 			int count = 0;
 			while(count != index)
 			{
