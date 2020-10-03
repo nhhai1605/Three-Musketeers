@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include "Game.h"
 
 void printMenu();
@@ -74,7 +75,7 @@ int main(int argc, char**argv)
 					if(inputFile.is_open())
 					{
 						validFile = true;
-						if(std::__fs::filesystem::file_size(fileName)==0)
+						if(std::filesystem::file_size(fileName)==0)
 						{
 							std::cout << "Empty file" << std::endl;
 							validFile = false;
@@ -128,7 +129,7 @@ int main(int argc, char**argv)
 			if(inputFile.is_open())
 			{
 				validFile = true;
-				if(std::__fs::filesystem::file_size(fileName)==0)
+				if(std::filesystem::file_size(fileName)==0)
 				{
 					std::cout << "Empty file" << std::endl;
 					validFile = false;
