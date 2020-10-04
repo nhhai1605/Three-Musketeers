@@ -682,13 +682,13 @@ void Game::saveGame(std::string saveFile)
 {
     saveFile = "saveFolder/" + saveFile + ".txt";
     std::ofstream outputFile(saveFile);
-    outputFile << player1 << std::endl;
-    outputFile << player2 << std::endl;
     for(int i = 0; i < copyTileBag->size(); i++)
     {
         copyTileBag->printTileAtIndex(outputFile, i);
     }
     outputFile << std::endl;
+    outputFile << player1 << std::endl;
+    outputFile << player2 << std::endl;
     for(std::size_t i = 0, max = consoleCommands.size(); i != max; ++i)
     {
         outputFile << consoleCommands[i] << std::endl;
@@ -700,9 +700,9 @@ void Game::saveGame(std::string saveFile)
 void Game::loadGame(std::ifstream& inputFile)
 {
     std::string tileList;
+    std::getline(inputFile, tileList);
     std::getline(inputFile, player1);
     std::getline(inputFile, player2);
-    std::getline(inputFile, tileList);
     tileBag = new TileBag(tileList);
     copyTileBag = new TileBag(*tileBag);
     player1Mosaic = new Mosaic(player1);
@@ -798,9 +798,9 @@ void Game::loadGame(std::ifstream& inputFile)
 void Game::testingMode(std::ifstream& inputFile)
 {
     std::string tileList;
+    std::getline(inputFile, tileList);
     std::getline(inputFile, player1);
     std::getline(inputFile, player2);
-    std::getline(inputFile, tileList);
     tileBag = new TileBag(tileList);
     copyTileBag = new TileBag(*tileBag);
     player1Mosaic = new Mosaic(player1);
@@ -820,11 +820,11 @@ void Game::testingMode(std::ifstream& inputFile)
             { 
                 gameStop = playerTurnTestingMode(inputFile, player2);       
             }
-        }
-        player1Mosaic->updateTable(tileBag);
-        player2Mosaic->updateTable(tileBag);   
+        }  
         if(factories->factoriesAreEmpty())
         {
+            player1Mosaic->updateTable(tileBag);
+            player2Mosaic->updateTable(tileBag); 
             factories->dealTile(tileBag);
         } 
     }
