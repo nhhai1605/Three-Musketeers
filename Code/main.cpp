@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include "Game.h"
 
 void printMenu();
@@ -80,6 +81,7 @@ int main(int argc, char**argv)
 					if(inputFile.is_open())
 					{
 						validFile = true;
+
 						//this used to check if the file is empty
 						int c = inputFile.peek();
 						if(c == EOF)
@@ -140,8 +142,9 @@ int main(int argc, char**argv)
 			//this used to check if the file is open
 			if(inputFile.is_open())
 			{
-				//this used to check if the file is empty
 				validFile = true;
+				
+				//this used to check if the file is empty
   				int c = inputFile.peek();
 				if(c == EOF)
 				{
