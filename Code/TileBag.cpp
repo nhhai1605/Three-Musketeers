@@ -100,6 +100,7 @@ void TileBag::printTileAtIndex(int index)
     std::cout << tileList->getTileAtIndex(index)->getTileName();
 }
 
+//This used to print tile at index but into outputFile
 void TileBag::printTileAtIndex(std::ofstream& outputFile, int index)
 {
     outputFile << tileList->getTileAtIndex(index)->getTileName();

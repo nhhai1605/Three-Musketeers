@@ -66,7 +66,7 @@ void Mosaic::printMosaic()
         std::cout << std::endl;
     }
     std::cout << "Broken tiles: ";
-    for(int i = 0; i < brokenTiles.size(); i++)
+    for(std::size_t i = 0, max = brokenTiles.size(); i != max; ++i)
     {
         std::cout << brokenTiles[i]->getTileName() << " ";
     }
@@ -107,6 +107,7 @@ void Mosaic::printPlayerRow(int index)
     }
 }
 
+//This method is used to know if the tile is added to the player succesfully or not, depend on other tiles already existed in the playerRow
 bool Mosaic::addTile(Tile* tile, int row)
 {
     bool tileAdded = false;
@@ -121,6 +122,7 @@ bool Mosaic::addTile(Tile* tile, int row)
     return tileAdded;
 }
 
+//This method usde to check if the tile type existed in the table or not
 bool Mosaic::tileTypeExitedInTable(Tile * tile, int row)
 {
     bool typeExisted = false;
@@ -180,6 +182,7 @@ int Mosaic::getScore()
     return score;
 }
 
+//This method used to calculate the score after updateTable
 void Mosaic::calculateScore(int row, int col)
 {
     int count = 0;
@@ -249,6 +252,7 @@ void Mosaic::calculateScore(int row, int col)
     
 }
 
+//This is used to calculate the score base on the number of broken tiles there are.
 void Mosaic::calculateBrokenTilesScore()
 {
     if(brokenTiles.size() == 1)
@@ -281,6 +285,7 @@ void Mosaic::calculateBrokenTilesScore()
     }
 }
 
+//this used to update the table, bring the tile from playerRow to table in the correct place
 void Mosaic::updateTable(TileBag * tileBag)
 {
     for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
@@ -339,6 +344,8 @@ void Mosaic::updateTable(TileBag * tileBag)
     }
 }
 
+
+//This used to check if the row is full or not, useful when checking valid input
 bool Mosaic::isRowFull(int row)
 {
     bool isFull = false;

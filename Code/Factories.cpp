@@ -65,6 +65,7 @@ void Factories::dealTile(TileBag* tileBag)
     }
 }
 
+//This used to get a whole row from factories, and all the tiles taken are deepcopied.
 Tile ** Factories::getFactory(int row)
 {
     Tile ** factoryRow;
@@ -83,6 +84,7 @@ Tile ** Factories::getFactory(int row)
     return factoryRow;
 }
 
+//This is used to clear the factory row after the row taken before is verified valid or not.
 void Factories::clearFactory(int row)
 {
     for(int i = 0; i < FACTORY_SIZE; i++)
@@ -105,6 +107,7 @@ LinkedList* Factories::getCentral()
     return central;
 }
 
+//This is used to check if all the factoires are empty, useful when i want to refil the factories.
 bool Factories::factoriesAreEmpty()
 {
     bool isEmpty = false;

@@ -74,7 +74,7 @@ int main(int argc, char**argv)
 					std::cin >> fileName;
 
 					//fileName can be change, for now it read from the "test" folder 
-					fileName = "test/" + fileName + ".txt";
+					fileName = "saveFolder/" + fileName + ".txt";
 					inputFile.open(fileName);
 
 					//this used to check if the file is open
@@ -135,7 +135,7 @@ int main(int argc, char**argv)
 			std::string fileName(argv[2]); 
 
 			//fileName can be change, for now it read from the "test" folder 
-			fileName = "test/" + fileName + ".txt";
+			fileName = "saveFolder/" + fileName + ".txt";
 			std::ifstream inputFile(fileName);
 			bool validFile = false;
 

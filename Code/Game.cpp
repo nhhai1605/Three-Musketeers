@@ -62,6 +62,7 @@ bool Game::isNumber(std::string string)
 	return isNumber; 
 } 
 
+//This method used to start a new Game with new TileBag, Mosaics and Factories
 void Game::startNewGame()
 {   
     player1Mosaic = new Mosaic(player1);
@@ -137,6 +138,7 @@ void Game::startNewGame()
     }
 }
 
+//This method used to run game login and input logic for 1 player
 void Game::playerTurn(std::string player)
 {
     std::cout << "TURN FOR PLAYER: " << player << std::endl;
@@ -354,6 +356,7 @@ void Game::playerTurn(std::string player)
     }
 }
 
+//This method is the same with playerTurn above , but read input from inputFile
 void Game::playerTurn(std::ifstream& inputFile, std::string player)
 {
     Tile ** factory = nullptr;
@@ -514,6 +517,7 @@ void Game::playerTurn(std::ifstream& inputFile, std::string player)
     }
 }
 
+//This method is used to know if the tile is added successfully to the table or not, depend on input, existed tile in Table
 bool Game::addToTable(Tile * tile, std::string player, int playerRow)
 {
     bool validFactoryRow = true;
@@ -560,6 +564,7 @@ bool Game::addToTable(Tile * tile, std::string player, int playerRow)
     return validFactoryRow;
 }
 
+//This method is used to know if the tile is added successfully to the broken tiles section or not
 void Game::addToBrokenTiles(Tile * tile, std::string player)
 {   
     if(player == player1)
@@ -580,6 +585,8 @@ void Game::addToBrokenTiles(Tile * tile, std::string player)
     }
 }
 
+
+//This method return true or false depending on the input
 bool Game::inputCommand(std::string command, int& factoryRow, char& tileCode, int& storageRow, std::string& saveFile)
 {
     bool validInput = true;
@@ -590,7 +597,7 @@ bool Game::inputCommand(std::string command, int& factoryRow, char& tileCode, in
 	int spaceinMiddle2 = 0;
     int spaceinMiddle3 = 0;
 	std::string str1,str2,str3,str4;
-	for(int i = 0; i < command.size(); i++)
+	for(std::string::size_type i = 0; i < command.size(); i++)
 	{
 		if(command[i] != ' ' && spaceInMiddle == 0)
 		{
@@ -659,6 +666,7 @@ bool Game::inputCommand(std::string command, int& factoryRow, char& tileCode, in
     return validInput;
 }
 
+//This method is used to check if the game is deleted, useful to check if the user press ^D in the middle of the game
 bool Game::gameDeleted()
 {
     bool isGameDeleted = false;
@@ -669,9 +677,11 @@ bool Game::gameDeleted()
     return isGameDeleted;
 }
 
+//This method is used to save the game(players' name, tileBag order, turns,... into a save file. This can overwrite existing file with the same name)
 void Game::saveGame(std::string saveFile)
 {
-    std::ofstream outputFile(saveFile + ".txt");
+    saveFile = "saveFolder/" + saveFile + ".txt";
+    std::ofstream outputFile(saveFile);
     outputFile << player1 << std::endl;
     outputFile << player2 << std::endl;
     for(int i = 0; i < copyTileBag->size(); i++)
@@ -679,13 +689,14 @@ void Game::saveGame(std::string saveFile)
         copyTileBag->printTileAtIndex(outputFile, i);
     }
     outputFile << std::endl;
-    for(int i = 0; i < consoleCommands.size(); i++)
+    for(std::size_t i = 0, max = consoleCommands.size(); i != max; ++i)
     {
         outputFile << consoleCommands[i] << std::endl;
     }
     outputFile.close();
 }
 
+//This method used to load the game with all the information from the inputFile
 void Game::loadGame(std::ifstream& inputFile)
 {
     std::string tileList;
@@ -783,6 +794,7 @@ void Game::loadGame(std::ifstream& inputFile)
     inputFile.close();
 }
 
+//This is used for testing mode
 void Game::testingMode(std::ifstream& inputFile)
 {
     std::string tileList;
@@ -826,6 +838,7 @@ void Game::testingMode(std::ifstream& inputFile)
     player2Mosaic->printMosaic();                
 }
 
+//this is used as normal playerTurn but for testing mode, users cant input anything in this state. testing mode only display and then terminate.
 bool Game::playerTurnTestingMode(std::ifstream& inputFile, std::string player) 
 {
     bool stopGame = false;
