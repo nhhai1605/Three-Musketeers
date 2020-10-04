@@ -1,5 +1,4 @@
 #include "LinkedList.h"
-
 LinkedList::LinkedList() {
 	head = nullptr;
 	sizeOfList = 0;
@@ -25,9 +24,10 @@ void LinkedList::addToFront(Tile *tile) {
 void LinkedList::addToBack(Tile *tile) {
 	Tile* other = new Tile(tile->getTileType());
 	Node* node = new Node(other);
+	Node* curr = nullptr;
 	if(head != nullptr)
-	{
-		Node* curr = head;
+	{	
+		curr = head;
 		while(curr->next != nullptr)
 		{
 			curr = curr->next;

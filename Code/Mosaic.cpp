@@ -134,6 +134,7 @@ bool Mosaic::tileTypeExitedInTable(Tile * tile, int row)
     return typeExisted;
 }
 
+//This method used to check if the tile we want to add into the playerRow is the same type with existing tiles or not.
 bool Mosaic::tileDiff(char tileCode, int row)
 {
     bool tileDiff= true;
@@ -323,6 +324,7 @@ void Mosaic::updateTable(TileBag * tileBag)
             tileBag->addFTile(brokenTiles[i]);
             brokenTiles.pop_back();
         }
+
     }
     for(int i = 0; i < MOSAIC_ROW_SIZE; i++)
     {

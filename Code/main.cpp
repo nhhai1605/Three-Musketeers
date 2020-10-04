@@ -12,6 +12,8 @@ int main(int argc, char**argv)
 		std::cout << "Welcome to Azul!" << std::endl;
 		std::cout << "-------------------" << std::endl;
 		std::string input;
+
+		//endProgram is used to check if the program is end or not, really helpful to prevent the program from keep running after ^D
 		bool endProgram = false;
 		while(!std::cin.eof() && !endProgram)
 		{
@@ -53,7 +55,7 @@ int main(int argc, char**argv)
 					std::cout << std::endl;
 					std::cout << "Let's Play!" << std::endl;
 					std::cout << std::endl;
-					std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n'); 
+					std::cin.ignore (1024, '\n'); 
 					Game * game = new Game(player1, player2);
 					game->startNewGame();
 					delete game;
@@ -69,14 +71,21 @@ int main(int argc, char**argv)
 				{
 					std::cout << "> ";
 					std::cin >> fileName;
-					fileName += ".txt";
+
+					//fileName can be change, for now it read from the "test" folder 
+					fileName = "test/" + fileName + ".txt";
 					inputFile.open(fileName);
+
+					//this used to check if the file is open
 					if(inputFile.is_open())
 					{
 						validFile = true;
-						if(std::__fs::filesystem::file_size(fileName)==0)
+						//this used to check if the file is empty
+						int c = inputFile.peek();
+						if(c == EOF)
 						{
-							std::cout << "Empty file" << std::endl;
+							std::cout << std::endl;
+							std::cout << "=== Empty file ===" << std::endl << std::endl;
 							validFile = false;
 						}
 					}
@@ -122,15 +131,22 @@ int main(int argc, char**argv)
 		if(command == "-t")
 		{
 			std::string fileName(argv[2]); 
-			fileName += ".txt";
+
+			//fileName can be change, for now it read from the "test" folder 
+			fileName = "test/" + fileName + ".txt";
 			std::ifstream inputFile(fileName);
 			bool validFile = false;
+
+			//this used to check if the file is open
 			if(inputFile.is_open())
 			{
+				//this used to check if the file is empty
 				validFile = true;
-				if(std::__fs::filesystem::file_size(fileName)==0)
+  				int c = inputFile.peek();
+				if(c == EOF)
 				{
-					std::cout << "Empty file" << std::endl;
+					std::cout << std::endl;
+					std::cout << "=== Empty file ===" << std::endl << std::endl;
 					validFile = false;
 				}
 			}

@@ -6,7 +6,7 @@ TileBag::TileBag()
     tileList = new LinkedList();
     for(int i = B; i != F; i++)
     {
-        for(int j = 0; j < 20; j++)
+        for(int j = 0; j < 40; j++)
         {
             tileList->addToBack(new Tile((TileType)i));
         }
@@ -14,10 +14,11 @@ TileBag::TileBag()
     tileList->addToFront(new Tile(F));
 }
 
+//This constructor used to make a TileBag base on a string. Helpful for loading a file
 TileBag::TileBag(std::string stringOfTiles)
 {
     tileList = new LinkedList();
-    for(int i = 0; i < stringOfTiles.length(); i++)
+    for(std::string::size_type i = 0; i < stringOfTiles.size(); i++)
     {
         if(stringOfTiles[i] == 'F')
         {

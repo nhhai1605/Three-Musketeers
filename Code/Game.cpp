@@ -48,13 +48,17 @@ Game::~Game()
 bool Game::isNumber(std::string string) 
 { 
 	bool isNumber = true;
-	for (int i = 0; i < string.length(); i++) 
-		{
-			if (isdigit(string[i]) == false) 
-			{
-				isNumber = false;
-			}
-		}
+	for (std::string::size_type i = 0; i < string.size(); i++) 
+    {
+        if (isdigit(string[i]) == false) 
+        {
+            isNumber = false;
+        }
+    }
+    if(string.size() == 0)
+    {
+        isNumber = false;
+    }
 	return isNumber; 
 } 
 
@@ -217,7 +221,7 @@ void Game::playerTurn(std::string player)
                 }
             }
             
-            if(player1Mosaic != nullptr && player2Mosaic != nullptr && storageRow != 6)
+            if(storageRow != 6)
             {
                 if(player == player1)
                 {
@@ -307,7 +311,6 @@ void Game::playerTurn(std::string player)
                 }
                 else
                 {
-                    factories->clearFactory(factoryRow-1);
                     for(int i = 0; i < FACTORY_SIZE; i++)
                     {
                         if(factory[i]->getTileName() == tileCode)
@@ -324,12 +327,11 @@ void Game::playerTurn(std::string player)
                         else
                         {
                             factories->addToCentral(factory[i]);
-                        }
-                        if(!validFactoryRow)
-                        {
-                           std::cout << "Invalid Input" << std::endl;    
-                        }
-                        
+                        }              
+                    }
+                    if(validFactoryRow)
+                    {
+                        factories->clearFactory(factoryRow-1);
                     }
                 }                     
                 if(validFactoryRow)
@@ -341,7 +343,12 @@ void Game::playerTurn(std::string player)
                         factory = nullptr;
                     }
                     std::cout << "Turn successful" << std::endl << std::endl;
-                }                           
+                }   
+                else
+                {                  
+                    std::cout << "Invalid Input" << std::endl;    
+                }
+                                        
             }
         }
     }
@@ -470,7 +477,6 @@ void Game::playerTurn(std::ifstream& inputFile, std::string player)
                 }
                 else
                 {
-                    factories->clearFactory(factoryRow-1);
                     for(int i = 0; i < FACTORY_SIZE; i++)
                     {
                         if(factory[i]->getTileName() == tileCode)
@@ -488,6 +494,10 @@ void Game::playerTurn(std::ifstream& inputFile, std::string player)
                         {
                             factories->addToCentral(factory[i]);
                         }                       
+                    }
+                    if(validFactoryRow)
+                    {
+                        factories->clearFactory(factoryRow-1);
                     }
                 }                     
                 if(validFactoryRow)
@@ -616,7 +626,7 @@ bool Game::inputCommand(std::string command, int& factoryRow, char& tileCode, in
 	}
     if(str1 == "turn")
     {
-        if(isNumber(str2) && isNumber(str4) && str3.length() == 1 && isupper(str3[0]))
+        if(isNumber(str2) && isNumber(str4) && str3.size() == 1 && isupper(str3[0]))
         {
             factoryRow = std::stoi(str2);
             storageRow = std::stoi(str4);
@@ -942,7 +952,6 @@ bool Game::playerTurnTestingMode(std::ifstream& inputFile, std::string player)
                 }
                 else
                 {
-                    factories->clearFactory(factoryRow-1);
                     for(int i = 0; i < FACTORY_SIZE; i++)
                     {
                         if(factory[i]->getTileName() == tileCode)
@@ -960,6 +969,10 @@ bool Game::playerTurnTestingMode(std::ifstream& inputFile, std::string player)
                         {
                             factories->addToCentral(factory[i]);
                         }                       
+                    }
+                    if(validFactoryRow)
+                    {
+                        factories->clearFactory(factoryRow-1);
                     }
                 }                     
                 if(validFactoryRow)
